@@ -1,0 +1,1 @@
+export default class ProductData { async getData(){const res=await fetch('/products.json');if(!res.ok)throw new Error('Products unavailable ('+res.status+')');const value=await res.json();if(!Array.isArray(value))throw new Error('Invalid product data');return value;} async findProduct(id){return (await this.getData()).find(p=>p.id===id)} }

@@ -1,0 +1,3 @@
+// Demo checkout service. API-shaped response and structured error checking for Week 04.
+export async function convertToJson(res){let data;try{data=await res.json()}catch{data={message:'Invalid server response'}}if(!res.ok){const err=new Error(data.message||'Checkout failed');err.status=res.status;err.data=data;throw err}return data}
+export default class ExternalServices {async checkout(order){if(!order?.items?.length){return convertToJson(new Response(JSON.stringify({message:'Cannot checkout with an empty cart.'}),{status:400,headers:{'Content-Type':'application/json'}}))}await new Promise(resolve=>setTimeout(resolve,200));return convertToJson(new Response(JSON.stringify({ok:true,orderId:'DEMO-'+Date.now()}),{status:200,headers:{'Content-Type':'application/json'}}))}}
